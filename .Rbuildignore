@@ -1,2 +1,9 @@
+^renv$
+^renv\.lock$
 ^Clabomic\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
