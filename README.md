@@ -18,7 +18,7 @@ laboratory data analysis
 You can install the development version of Clabomic like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# devtools::install_github('Huaichao2018/Clabomic')
 ```
 
 ## Example
