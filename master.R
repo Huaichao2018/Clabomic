@@ -14,7 +14,7 @@ usethis::use_package(package = 'parallel', type =  "Import")
 usethis::use_package(package = 'doParallel', type =  "Import")
 usethis::use_package(package = 'ggsci', type =  "Import")
 usethis::use_package(package = 'pROC', type =  "Import")
-
+usethis::use_package(package = 'tidyr', type =  "Import")
 
 #1.写完一个函数就执行
 file.create("R/do_batch_Wilcoxon.R")
@@ -76,7 +76,7 @@ file.create("R/get_best_svm.R")
 styler::style_pkg()
 devtools::load_all()
 devtools::document()
-?get_best_svm
+
 
 #'8
 file.create("R/do_muti_roc.R")
@@ -89,8 +89,19 @@ devtools::check()
 
 #11.rmd
 usethis::use_readme_rmd()
+usethis::use_pkgdown()
+pkgdown::build_site()
+usethis::use_tidy_github_actions()
 
+devtools::build_rmd(files = "./README.Rmd",path = "./")
 #12.
 renv::update()
 renv::snapshot()
+usethis::use_vignette("Clabomic_vignette")
+devtools::build()
+
+#13
+install.packages("../Clabomic_0.0.0.9000.tar.gz",
+                 repos=NULL, type="source")
 #13.
+

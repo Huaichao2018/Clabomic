@@ -4,7 +4,9 @@
 #'
 #' @return svm_importance data frame
 #' @export
-#'
+#' @import tidyr
+#' @import ggplot2
+#' @import dplyr
 #' @examples
 #' library(Clabomic)
 #' colnames(iris)[ncol(iris)] <- "group"
@@ -24,6 +26,6 @@ svm_importance <- function(best_model) {
     theme_classic() +
     labs(x = "features") +
     theme(text = element_text(size = 25))
-  p
+  print(p)
   return(w)
 }

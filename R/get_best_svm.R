@@ -11,7 +11,9 @@
 #' colnames(iris)[ncol(iris)] <- "group"
 #' iris$group <- ifelse(iris$group == "setosa", "pos", "nag")
 #' res <- do_ga_based_svm(iris, positive_col = "pos")
+#' iris$group=as.numeric(ifelse(iris$group == "pos", 1, 0))
 #' best_model <- get_best_svm(iris,res)
+
 get_best_svm <- function(Train, res) {
   best_model <- svm(group ~ .,
     data = Train,

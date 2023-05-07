@@ -1,0 +1,74 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Clabomic
+
+<!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/Huaichao2018/Clabomic/branch/main/graph/badge.svg)](https://app.codecov.io/gh/Huaichao2018/Clabomic?branch=main)
+[![R-CMD-check](https://github.com/Huaichao2018/Clabomic/workflows/R-CMD-check/badge.svg)](https://github.com/Huaichao2018/Clabomic/actions)
+<!-- badges: end -->
+
+The goal of Clabomic is to help medical researcher to do clinical laboratory data analysis
+
+## Installation
+
+You can install the development version of Clabomic like so: 
+
+``` r
+# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+```
+
+## Example
+
+
+```{r setup}
+#install.packages("../Clabomic_0.0.0.9000.tar.gz",
+                 #repos=NULL, type="source")
+library(Clabomic)
+```
+
+
+```{r}
+dat=iris
+colnames(dat)[ncol(dat)] <- "group"
+dat_wilcoxon_res <- do_batch_Wilcoxon(mat = dat)
+```
+
+```{r}
+datnew=dat
+datnew$group=ifelse(datnew$group=='setosa','a','b')
+dat_roc_res <- do_batch_roc(datnew)
+print(dat_roc_res)
+```
+
+```{r}
+res <- do_batch_feature_sel(dat)
+```
+
+```{r}
+res <- do_ga_based_svm(datnew, positive_col = "a")
+datnew$group=as.numeric(ifelse(datnew$group == "a", 1, 0))
+best_model <- get_best_svm(datnew,res)
+importance <- svm_importance(best_model)
+```
+
+```{r}
+datnew$pre=predict(best_model,datnew)
+library(pROC)
+roc <- roc(datnew$group, datnew$pre)
+cut_mat=cut_off_selecting(roc)
+roc.list <- list(Train = roc(dat$group, dat$Sepal.Length), Test = roc(dat$group, dat$Sepal.Width))
+do_muti_roc(roc.list)
+```

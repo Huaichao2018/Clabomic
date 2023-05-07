@@ -4,12 +4,14 @@
 \alias{do_ga_based_svm}
 \title{Optimization of svm high-dimensional parameters based on genetic algorithm}
 \usage{
-do_ga_based_svm(dat, positive_col = "malignant")
+do_ga_based_svm(dat, positive_col = "malignant", maxiter = 100)
 }
 \arguments{
 \item{dat}{data frame with several numeric features and one Categorical variables at last column}
 
 \item{positive_col}{the name of positive Categorical variable at last column}
+
+\item{maxiter}{max generation}
 }
 \value{
 fig and value

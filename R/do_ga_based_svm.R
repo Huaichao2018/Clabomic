@@ -2,6 +2,7 @@
 #'
 #' @param dat data frame with several numeric features and one Categorical variables at last column
 #' @param positive_col the name of positive Categorical variable at last column
+#' @param maxiter max generation
 #'
 #' @return fig and value
 #' @export
@@ -16,7 +17,7 @@
 #' colnames(iris)[ncol(iris)] <- "group"
 #' iris$group <- ifelse(iris$group == "setosa", "pos", "nag")
 #' res <- do_ga_based_svm(iris, positive_col = "pos")
-do_ga_based_svm <- function(dat, positive_col = "malignant") {
+do_ga_based_svm <- function(dat, positive_col = "malignant",maxiter=100) {
   set.seed(1234)
   dat$group <- ifelse(dat$group == positive_col, 1, 0)
   K <- 5
@@ -95,7 +96,7 @@ do_ga_based_svm <- function(dat, positive_col = "malignant") {
     lower = para_value_min,
     upper = para_value_max, parallel = F,
     popSize = 50, # nBits =30,
-    maxiter = 100
+    maxiter = maxiter
   )
 
   summary(results)
