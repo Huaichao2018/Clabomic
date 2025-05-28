@@ -66,11 +66,5 @@ do_batch_Wilcoxon <- function(mat,p_value=0.05) {
   last_test_sig <- merge(test_sig, sd_file, by = "id")
   last_test_sig <- merge(last_test_sig, logFC, by = "id")
   last_test_sig <- last_test_sig[order(last_test_sig$p), ]
-  last_test_sig$change <- last_test_sig$change <- as.factor(
-    ifelse(last_test_sig$p < 0.05, ifelse(last_test_sig$logFC > 0.5, "Up",
-      ifelse(last_test_sig$logFC < -0.5, "Down", "Stable")
-    ))
-  )
-
   return(last_test_sig)
 }
