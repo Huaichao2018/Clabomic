@@ -1,6 +1,7 @@
 #' The last column is used as grouping, and the other columns are subjected to Wilcoxon test
 #'
 #' @param mat a data frame,the last column is 'group', and the content is binary classification text
+#' @param p_value the cut off value of p value
 #' @return Wilcoxon test results
 #' @import dplyr
 #' @export
@@ -9,7 +10,7 @@
 #' library(Clabomic)
 #' colnames(iris)[ncol(iris)] <- "group"
 #' iris_batch_wilcoxon_res <- do_batch_Wilcoxon(iris)
-do_batch_Wilcoxon <- function(mat) {
+do_batch_Wilcoxon <- function(mat,p_value=0.05) {
   # wilcon first step to select factor
   test.fun <- function(dat, col) {
     # dat=mat;col=1
@@ -35,7 +36,7 @@ do_batch_Wilcoxon <- function(mat) {
   tests <- do.call(rbind, lapply(colnames(mat)[-ncol(mat)], function(x) test.fun(mat, x)))
   rownames(tests) <- colnames(mat)[-ncol(mat)]
 
-  test_sig <- tests[tests$p < 0.01, ]
+  test_sig <- tests[tests$p <p_value, ]
   str(test_sig)
   test_sig$p.adjust <- p.adjust(test_sig$p, method = "bonferroni")
   test_sig <- test_sig[order(test_sig$p), ]
